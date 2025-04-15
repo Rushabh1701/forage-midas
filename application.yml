@@ -1,0 +1,15 @@
+general:
+  kafka-topic: transactions-topic
+  kafka-bootstrap-servers: ${spring.embedded.kafka.brokers} 
+
+spring:
+  kafka:
+    producer:
+      retries: 3
+      acks: all
+      properties:
+        linger.ms: 10
+    consumer:
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
