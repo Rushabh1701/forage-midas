@@ -43,4 +43,9 @@ public class UserRecord {
     public void setBalance(float balance) {
         this.balance = balance;
     }
+
+	public UserRecord orElse(Object object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

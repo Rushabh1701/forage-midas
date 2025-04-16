@@ -9,7 +9,7 @@ public class Listeners {
 	private int counter = 0;
     @KafkaListener(topics = "${general.kafka-topic}", groupId = "transaction-group")
     public void listen(Transaction transaction) {
-    	if (counter < 4) {
+    	if (counter < 10) {
             System.out.println("✅ Received Transaction #" + (counter + 1) + " - Amount: " + transaction.getAmount());
             counter++;
         }

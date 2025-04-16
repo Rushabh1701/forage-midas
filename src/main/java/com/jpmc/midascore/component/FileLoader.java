@@ -1,9 +1,10 @@
-package com.jpmc.midascore;
-
-import org.springframework.stereotype.Component;
-import org.testcontainers.shaded.org.apache.commons.io.IOUtils;
+package com.jpmc.midascore.component;
 
 import java.io.InputStream;
+
+import org.apache.commons.io.IOUtils;
+
+import org.springframework.stereotype.Component;
 
 @Component
 public class FileLoader {

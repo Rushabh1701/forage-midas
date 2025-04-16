@@ -8,11 +8,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
 
+import com.jpmc.midascore.component.FileLoader;
+import com.jpmc.midascore.component.UserPopulator;
+import com.jpmc.midascore.entity.UserRecord;
+import com.jpmc.midascore.repository.TransactionRecordRepository;
+import com.jpmc.midascore.repository.UserRepository;
+
 @SpringBootTest
 @DirtiesContext
 @EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
 public class TaskThreeTests {
     static final Logger logger = LoggerFactory.getLogger(TaskThreeTests.class);
+    
+    @Autowired
+    private TransactionRecordRepository transactionRecordRepository;  // Assuming this repository is set up
+
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private KafkaProducer kafkaProducer;
@@ -26,6 +39,7 @@ public class TaskThreeTests {
     @Test
     void task_three_verifier() throws InterruptedException {
         userPopulator.populate();
+        userRepository.findAll().forEach(user -> System.out.println("Users from test file: " + user));
         String[] transactionLines = fileLoader.loadStrings("/test_data/mnbvcxz.vbnm");
         for (String transactionLine : transactionLines) {
             kafkaProducer.send(transactionLine);
